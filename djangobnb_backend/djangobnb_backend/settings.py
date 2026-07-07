@@ -17,12 +17,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #bool(os.environ.get("DEBUG", default=0))
+DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
 
-if DEBUG:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "64.226.81.32"]
-else:
-    ALLOWED_HOSTS = ["64.226.81.32"]
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS",
+    "localhost 127.0.0.1 64.226.81.32 djangoapp.riyasf.com"
+).split(" ")
 
 AUTH_USER_MODEL = 'useraccount.User'
 
@@ -31,7 +31,7 @@ SITE_ID = 1
 if DEBUG:
     WEBSITE_URL = 'http://localhost:8000'
 else:
-    WEBSITE_URL = 'http://64.226.81.32:1337'
+    WEBSITE_URL = 'https://djangoapp.riyasf.com'
 
 CHANNEL_LAYERS = {
     'default': {
@@ -68,21 +68,27 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
     'http://64.226.81.32',
-    'http://64.226.81.32:1337'
+    'http://64.226.81.32:1337',
+    'https://djangoapp.riyasf.com',
+    'http://djangoapp.riyasf.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
     'http://64.226.81.32',
-    'http://64.226.81.32:1337'
+    'http://64.226.81.32:1337',
+    'https://djangoapp.riyasf.com',
+    'http://djangoapp.riyasf.com'
 ]
 
 CORS_ORIGINS_WHITELIST = [
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
     'http://64.226.81.32',
-    'http://64.226.81.32:1337'
+    'http://64.226.81.32:1337',
+    'https://djangoapp.riyasf.com',
+    'http://djangoapp.riyasf.com'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
