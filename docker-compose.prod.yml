@@ -29,10 +29,10 @@ services:
       - DATABASE=${DATABASE}
     depends_on:
       - db
-      - daphne
   daphne:
     build: ./djangobnb_backend
-    command: daphne --bind 0.0.0.0 -p 8002 djangobnb_backend.asgi:application
+    entrypoint: []
+    command: sh -c "sleep 15 && daphne --bind 0.0.0.0 -p 8002 djangobnb_backend.asgi:application"
     ports:
       - 8002:8002
     environment:
@@ -47,7 +47,7 @@ services:
       - SQL_PORT=${SQL_PORT}
       - DATABASE=${DATABASE}
     depends_on:
-      - db
+      - web
   db:
     image: postgres:15
     volumes:
